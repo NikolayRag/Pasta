@@ -187,6 +187,21 @@ private function do_blur($_in, $_cArgs){
 	return $out;
 }
 
+
+
+/*
+Saturation
+
+ex:
+	sat s
+*/
+private function do_sat($_in, $_cArgs){
+	$out = clone $_in;
+				
+	$out->modulateImage(100, $_cArgs[0], 100);
+
+	return $out;
+}
 /*
 ========== - OPS ===========
 */
@@ -233,6 +248,7 @@ function __construct($_script=[], $_type=''){
 			case 'level':
 			case 'gamma':
 			case 'blur':
+			case 'sat':
 				$comString.= $cScript;
 
 				$cMethod = "do_${cCmdA[0]}";
