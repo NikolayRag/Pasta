@@ -179,9 +179,13 @@ ex:
 private function do_level($_in, $_cArgs){
 	$out = clone $_in;
 				
-	$out->levelImage(65535-(65535/(1-$_cArgs[0])), 1, 65535/$_cArgs[1], imagick::CHANNEL_RED);
-	$out->levelImage(65535-(65535/(1-$_cArgs[2])), 1, 65535/$_cArgs[3], imagick::CHANNEL_GREEN);
-	$out->levelImage(65535-(65535/(1-$_cArgs[4])), 1, 65535/$_cArgs[5], imagick::CHANNEL_BLUE);
+    $q = 65535;
+    $out->evaluateimage(Imagick::EVALUATE_MULTIPLY, $_cArgs[1]-$_cArgs[0], Imagick::CHANNEL_RED);
+    $out->evaluateimage(Imagick::EVALUATE_ADD, $_cArgs[0] * $q, Imagick::CHANNEL_RED);
+    $out->evaluateimage(Imagick::EVALUATE_MULTIPLY, $_cArgs[3]-$_cArgs[2], Imagick::CHANNEL_GREEN);
+    $out->evaluateimage(Imagick::EVALUATE_ADD, $_cArgs[2] * $q, Imagick::CHANNEL_GREEN);
+    $out->evaluateimage(Imagick::EVALUATE_MULTIPLY, $_cArgs[5]-$_cArgs[4], Imagick::CHANNEL_BLUE);
+    $out->evaluateimage(Imagick::EVALUATE_ADD, $_cArgs[4] * $q, Imagick::CHANNEL_BLUE);
 
 	return $out;
 }
