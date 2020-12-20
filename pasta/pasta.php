@@ -1,7 +1,7 @@
 <? 
 class PASTA {
 
-private $namesA=[], $ordersA=[], $type='jpg', $md5='';
+private $namesA=[], $ordersA=[], $md5='';
 private $dirFonts=__dir__;
 
 
@@ -273,32 +273,18 @@ Create new Pasta
 $_script
 	Operation array of strings in form of
 	"[name=]op arg1..."
-
-$_type
-	default image type to be baked
-	JPG if none
-	Can be overriden by explicit declare within $_script, like [..., 'png', ...]
 	where op is 
 	  [new|take|size|crop|move|rot|text|mix|level|gamma|blur|sat|mode]
 */
-function __construct($_script=[], $_type=''){
+function __construct($_script=[]){
 	$comString = "";
 
-
-	$this->setType($_type);
 
 	foreach ($_script as $cScript){
 		$cCmd = explode('=', $cScript);
 		
 		$cCmdA = explode(' ', $cCmd[1]); //command args
 		switch ($cCmdA[0]){
-			case 'jpg':
-			case 'png':
-				$this->setType($cCmdA[0]);
-
-				break;
-
-
 			case 'new':
 			case 'take':
 			case 'size':
@@ -345,23 +331,11 @@ function setFontsDir($_root){
 
 
 /*
-Set image type directly
-*/
-function setType($_type=''){
-	if (in_array($_type, ['jpg','png']))
-		$this->type = $_type;
-
-	return $this->type;
-}
-
-
-
-/*
 Actual compose
 
 return Imagick object
 */
-function bake ($_type=''){
+function bake (){
 	$this->namesA = [];
 	
 	
@@ -376,8 +350,6 @@ function bake ($_type=''){
 	}
 
 	
-	$out->setImageFormat($this->setType($_type));
-
 	return $out;
 }
 
