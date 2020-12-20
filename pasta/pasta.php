@@ -81,7 +81,7 @@ private function do_move($_in, $_cArgs){
 	$out = new Imagick();
 	$out->newImage($_in->getImageWidth() +$_cArgs[0],$_in->getImageHeight() +$_cArgs[1], new ImagickPixel('rgba(0%,0%,0%,0)') );
 				
-	$out->compositeImage($_in,imagick::COMPOSITE_OVER,$_cArgs[0],$_cArgs[1]);
+	$out->compositeImage($_in,Imagick::COMPOSITE_OVER,$_cArgs[0],$_cArgs[1]);
 
 	return $out;
 }
@@ -153,12 +153,12 @@ private function do_mix($_in, $_cArgs){
 	$out = isSet($_cArgs[2])? clone $this->namesA[$_cArgs[0]] :clone $_in;
 	
 	$cMethod = [
-		'dif'=>imagick::COMPOSITE_DIFFERENCE,
-		'mul'=>imagick::COMPOSITE_MULTIPLY,
-		'add'=>imagick::COMPOSITE_BLEND,
-		'lay'=>imagick::COMPOSITE_OVERLAY,
-		'over'=>imagick::COMPOSITE_OVER,
-		'cut'=>imagick::COMPOSITE_OUT,
+		'dif'=>Imagick::COMPOSITE_DIFFERENCE,
+		'mul'=>Imagick::COMPOSITE_MULTIPLY,
+		'add'=>Imagick::COMPOSITE_BLEND,
+		'lay'=>Imagick::COMPOSITE_OVERLAY,
+		'over'=>Imagick::COMPOSITE_OVER,
+		'cut'=>Imagick::COMPOSITE_OUT,
  
 	][$_cArgs[1]];
 				
@@ -201,9 +201,9 @@ ex:
 private function do_gamma($_in, $_cArgs){
 	$out = clone $_in;
 				
-	$out->levelImage(0, $_cArgs[0], 65535, imagick::CHANNEL_RED);
-	$out->levelImage(0, $_cArgs[1], 65535, imagick::CHANNEL_GREEN);
-	$out->levelImage(0, $_cArgs[2], 65535, imagick::CHANNEL_BLUE);
+	$out->levelImage(0, $_cArgs[0], 65535, Imagick::CHANNEL_RED);
+	$out->levelImage(0, $_cArgs[1], 65535, Imagick::CHANNEL_GREEN);
+	$out->levelImage(0, $_cArgs[2], 65535, Imagick::CHANNEL_BLUE);
 
 	return $out;
 }
@@ -219,7 +219,7 @@ ex:
 private function do_blur($_in, $_cArgs){
 	$out = clone $_in;
 				
-	$out->gaussianBlurImage($_cArgs[0], $_cArgs[0]/2, imagick::CHANNEL_ALL);
+	$out->gaussianBlurImage($_cArgs[0], $_cArgs[0]/2, Imagick::CHANNEL_ALL);
 
 	return $out;
 }
@@ -250,13 +250,13 @@ ex:
 */
 private function do_mode($_in, $_cArgs){
 	$spacesA = [
-		'rgb' => imagick::COLORSPACE_SRGB,
-		'lab' => imagick::COLORSPACE_LAB,
-		'xyz' => imagick::COLORSPACE_XYZ,
-		'yuv' => imagick::COLORSPACE_YUV,
-		'cmyk' => imagick::COLORSPACE_CMYK,
-		'hsb' => imagick::COLORSPACE_HSB,
-		'hsl' => imagick::COLORSPACE_HSL,
+		'rgb' => Imagick::COLORSPACE_SRGB,
+		'lab' => Imagick::COLORSPACE_LAB,
+		'xyz' => Imagick::COLORSPACE_XYZ,
+		'yuv' => Imagick::COLORSPACE_YUV,
+		'cmyk' => Imagick::COLORSPACE_CMYK,
+		'hsb' => Imagick::COLORSPACE_HSB,
+		'hsl' => Imagick::COLORSPACE_HSL,
 	];
 
 	$out = clone $_in;
