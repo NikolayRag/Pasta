@@ -89,6 +89,39 @@ private function do_move($_in, $_cArgs){
 
 
 /*
+Rotate
+
+ex:
+	rot angle x:crop
+*/
+private function do_rot($_in, $_cArgs){
+	$inW = $_in->getImageWidth();
+	$inH = $_in->getImageHeight();
+
+	$out = clone $_in;
+
+	$out->rotateImage(new ImagickPixel('rgba(0%,0%,0%,0)'), $_cArgs[0]);
+
+	$outW = $out->getImageWidth();
+	$outH = $out->getImageHeight();
+
+	$out->setImagePage($outW, $outH, 0, 0);
+
+	if (isSet($_cArgs[1])){
+		$out->cropImage(
+			$inW,
+			$inH,
+			($outW-$inW)/2,
+			($outH-$inH)/2
+		);
+	}
+
+	return $out;
+}
+
+
+
+/*
 Place text over
 
 ex:
@@ -269,6 +302,7 @@ function __construct($_script=[], $_type=''){
 			case 'size':
 			case 'crop':
 			case 'move':
+			case 'rot':
 			case 'text':
 			case 'mix':
 			case 'level':
