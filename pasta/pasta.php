@@ -242,7 +242,7 @@ private function do_sat($_in, $_cArgs){
 Change color space
 
 ex:
-	mode []
+	mode [rgb|lab|xyz|yuv|cmyk|hsb|hsl]
 */
 private function do_mode($_in, $_cArgs){
 	$spacesA = [
@@ -278,6 +278,8 @@ $_type
 	default image type to be baked
 	JPG if none
 	Can be overriden by explicit declare within $_script, like [..., 'png', ...]
+	where op is 
+	  [new|take|size|crop|move|rot|text|mix|level|gamma|blur|sat|mode]
 */
 function __construct($_script=[], $_type=''){
 	$comString = "";
