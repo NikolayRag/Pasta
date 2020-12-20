@@ -202,6 +202,32 @@ private function do_sat($_in, $_cArgs){
 
 	return $out;
 }
+
+
+
+/*
+Change color space
+
+ex:
+	mode []
+*/
+private function do_mode($_in, $_cArgs){
+	$spacesA = [
+		'rgb' => imagick::COLORSPACE_SRGB,
+		'lab' => imagick::COLORSPACE_LAB,
+		'xyz' => imagick::COLORSPACE_XYZ,
+		'yuv' => imagick::COLORSPACE_YUV,
+		'cmyk' => imagick::COLORSPACE_CMYK,
+		'hsb' => imagick::COLORSPACE_HSB,
+		'hsl' => imagick::COLORSPACE_HSL,
+	];
+
+	$out = clone $_in;
+
+	$out->transformimagecolorspace($spacesA[$_cArgs[0]]);
+
+	return $out;
+}
 /*
 ========== - OPS ===========
 */
@@ -249,6 +275,7 @@ function __construct($_script=[], $_type=''){
 			case 'gamma':
 			case 'blur':
 			case 'sat':
+			case 'mode':
 				$comString.= $cScript;
 
 				$cMethod = "do_${cCmdA[0]}";
