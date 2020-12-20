@@ -25,3 +25,13 @@ Sample script provided with GET (in one line without newlines):
 &blur 10
 &mix t1 cut
 &mix mix1 over x
+
+
+Simple  code for calling Pasta is
+
+```
+$cPasta = new PASTA($scriptArray, 'jpg');
+$cPasta->setFontsDir(__dir__ .'/fonts/');
+$cIm = $cPasta->bake();
+echo $cIm;
+```
