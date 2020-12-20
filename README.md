@@ -3,15 +3,16 @@ Compose images with PHP+Imagemagik
 Warning: it's not optimized in any way and thus is slow!
 
 Pasta takes linear composing script and creates merged image.
-Sequence of operations is passed as ['op arg1 arg2 ...'] array of strings,
-making it easy to achieve form GET arguments by 'explode("&", $_SERVER["REQUEST_URI"])'
+Sequence of operations is passed as `['op arg1 arg2 ...']` array of strings,
+making it easy to achieve form GET arguments by `explode("&", $_SERVER["REQUEST_URI"])`
 or something like that.
 
-Any of intermideate results can be named with 'name=op arg...' construct, to be used later
+Any of intermideate results can be named with `name=op arg...` construct, to be used later
 for layered composing by 'mix' op.
 
 Sample script provided with GET (in one line without newlines):
 
+```
 ?take path-to-image.jpg
 &crop 100 100 800 800
 &size 600 300
@@ -25,7 +26,7 @@ Sample script provided with GET (in one line without newlines):
 &blur 10
 &mix t1 cut
 &mix mix1 over x
-
+```
 
 Simple  code for calling Pasta is
 
