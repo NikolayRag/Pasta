@@ -138,17 +138,17 @@ private function do_mix($_in, $_cArgs){
 
 
 /*
-Set black point
+Set black and white points
 
 ex:
-	setb r g b
+	setb r0 r1 g0 g1 b0 b1
 */
-private function do_setb($_in, $_cArgs){
+private function do_level($_in, $_cArgs){
 	$out = clone $_in;
 				
-	$out->levelImage(65535-(65535/(1-$_cArgs[0])), 1, 65535, imagick::CHANNEL_RED);
-	$out->levelImage(65535-(65535/(1-$_cArgs[1])), 1, 65535, imagick::CHANNEL_GREEN);
-	$out->levelImage(65535-(65535/(1-$_cArgs[2])), 1, 65535, imagick::CHANNEL_BLUE);
+	$out->levelImage(65535-(65535/(1-$_cArgs[0])), 1, 65535/$_cArgs[1], imagick::CHANNEL_RED);
+	$out->levelImage(65535-(65535/(1-$_cArgs[2])), 1, 65535/$_cArgs[3], imagick::CHANNEL_GREEN);
+	$out->levelImage(65535-(65535/(1-$_cArgs[4])), 1, 65535/$_cArgs[5], imagick::CHANNEL_BLUE);
 
 	return $out;
 }
@@ -159,32 +159,14 @@ private function do_setb($_in, $_cArgs){
 Set gamma
 
 ex:
-	setg r g b
+	gamma r g b
 */
-private function do_setg($_in, $_cArgs){
+private function do_gamma($_in, $_cArgs){
 	$out = clone $_in;
 				
 	$out->levelImage(0, $_cArgs[0], 65535, imagick::CHANNEL_RED);
 	$out->levelImage(0, $_cArgs[1], 65535, imagick::CHANNEL_GREEN);
 	$out->levelImage(0, $_cArgs[2], 65535, imagick::CHANNEL_BLUE);
-
-	return $out;
-}
-
-
-
-/*
-Set white point
-
-ex:
-	setw r g b
-*/
-private function do_setw($_in, $_cArgs){
-	$out = clone $_in;
-				
-	$out->levelImage(0, 1, 65535/$_cArgs[0], imagick::CHANNEL_RED);
-	$out->levelImage(0, 1, 65535/$_cArgs[1], imagick::CHANNEL_GREEN);
-	$out->levelImage(0, 1, 65535/$_cArgs[2], imagick::CHANNEL_BLUE);
 
 	return $out;
 }
@@ -248,9 +230,8 @@ function __construct($_script=[], $_type=''){
 			case 'move':
 			case 'text':
 			case 'mix':
-			case 'setb':
-			case 'setg':
-			case 'setw':
+			case 'level':
+			case 'gamma':
 			case 'blur':
 				$comString.= $cScript;
 
