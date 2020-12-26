@@ -11,32 +11,25 @@ Any of intermideate results can be named with `name=op arg...` construct, to be 
 Op's are:
 
 ```
-take path-to-image.jpg
-&crop 100 100 800 800
-&size 600 300
-&rot 15
-&gamma .5 1 .1
-&back=move -100 100
-&take path-to-image2.jpg
-&sat 300
-&level -.2 1 0 1 .2 1
-&crop 0 0 1000 500
-&mix1=mix back over
-&new 800 400
-&t1=text 100 200 100 font.ttf Hi There
-&level 0 .2 0 1 0 .6
-&blur 10
-&mix t1 cut x
-&mix mix1 add x
-&mode hsb
-&level 0 1.5 0 1 0 1
+new width height color
+take URL
+size width height
+crop x y width height
+move x y
+rot angle [crop:x]
+text x y size fontname text
+mix layer2 mode:dif|mul|add|lay|over|cut [swap:x]
+level r0 r1 g0 g1 b0 b1
+gamma r g b
+blur size
+sat amt
+mode space:rgb|lab|xyz|yuv|cmyk|hsb|hsl
 ```
 
 Simple  code for calling Pasta is
 
 ```
-$cPasta = new PASTA($scriptArray, 'jpg');
-$cPasta->setFontsDir(__dir__ .'/fonts/');
+$cPasta = new PASTA($scriptArray, $fontsRoot);
 $cIm = $cPasta->bake();
 echo $cIm;
 ```
