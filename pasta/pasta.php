@@ -140,10 +140,12 @@ private function do_text($_in, $_cArgs){
 		$fnA = explode('/', $_cArgs[3]);
 		$fn = $this->dirFonts . $fnA[count($fnA)-1];
 
-		file_put_contents(
-			$fn,
-			file_get_contents($_cArgs[3])
-		);
+// =todo 5 (feature) +0: cache font
+		if (!file_exists($fn))
+		  file_put_contents(
+				$fn,
+				file_get_contents($_cArgs[3])
+		  );
 	}
 
 	$draw = new ImagickDraw();
