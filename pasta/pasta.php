@@ -279,10 +279,16 @@ $_script
 	"[name=]op arg1..."
 	where op is 
 	  [new|take|size|crop|move|rot|text|mix|level|gamma|blur|sat|mode]
-*/
-function __construct($_script=[]){
-	$comString = "";
 
+$_fontRoot
+	Fonts dir to use with text-related ops
+*/
+function __construct($_script=[], $_fontRoot=False){
+	if ($_fontRoot)
+	  $this->dirFonts = $_fontRoot;
+
+
+	$comString = "";
 
 	foreach ($_script as $cScript){
 		$cCmd = explode('=', $cScript);
@@ -321,15 +327,6 @@ return md5 hash of actual part of script
 */
 function md5(){
 	return $this->md5;
-}
-
-
-
-/*
-Set font folder to be accessed in 'text ...' op
-*/
-function setFontsDir($_root){
-	$this->dirFonts = $_root;
 }
 
 
