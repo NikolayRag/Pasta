@@ -1,4 +1,10 @@
 <? 
+/*
+Compose images with provided script
+
+Issue:
+	Almost any step is performed by copying previous step image - this is tested to be NOT time consuming.
+*/
 class PASTA {
 
 private $namesA=[], $ordersA=[], $md5='';
@@ -92,7 +98,7 @@ private function do_move($_in, $_cArgs){
 Rotate
 
 ex:
-	rot angle x:crop
+	rot angle [crop:x]
 */
 private function do_rot($_in, $_cArgs){
 	$inW = $_in->getImageWidth();
@@ -155,7 +161,7 @@ private function do_text($_in, $_cArgs){
 Compose current image with named one
 
 ex:
-	mix 2ndLayer mode(dif|mul|add|lay|over|cut) x:swapInputs
+	mix layer2 mode:dif|mul|add|lay|over|cut [swap:x]
 */
 private function do_mix($_in, $_cArgs){
 	$l2 = !isSet($_cArgs[2])? $this->namesA[$_cArgs[0]] :$_in;
@@ -184,7 +190,7 @@ private function do_mix($_in, $_cArgs){
 Set black and white points
 
 ex:
-	setb r0 r1 g0 g1 b0 b1
+	level r0 r1 g0 g1 b0 b1
 */
 private function do_level($_in, $_cArgs){
 	$out = clone $_in;
@@ -240,7 +246,7 @@ private function do_blur($_in, $_cArgs){
 Saturation
 
 ex:
-	sat s
+	sat amt
 */
 private function do_sat($_in, $_cArgs){
 	$out = clone $_in;
@@ -256,7 +262,7 @@ private function do_sat($_in, $_cArgs){
 Change color space
 
 ex:
-	mode [rgb|lab|xyz|yuv|cmyk|hsb|hsl]
+	mode space:rgb|lab|xyz|yuv|cmyk|hsb|hsl
 */
 private function do_mode($_in, $_cArgs){
 	$spacesA = [

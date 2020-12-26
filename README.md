@@ -8,7 +8,7 @@ making it easy to achieve form GET arguments by `explode("&", $_SERVER["REQUEST_
 
 Any of intermideate results can be named with `name=op arg...` construct, to be used later for layered composing by 'mix' op.
 
-Sample GET script valid for providing to Pasta (as one line without newlines):
+Op's are:
 
 ```
 take path-to-image.jpg
