@@ -130,9 +130,19 @@ ex:
 private function do_text($_in, $_cArgs){
 	$out = clone $_in;
 
+	if (preg_match('|^http(s)?://.+|', $_cArgs[3])){
+		$fnA = explode('/', $_cArgs[3]);
+		$fn = $this->dirFonts . $fnA[count($fnA)-1];
+
+		file_put_contents(
+			$fn,
+			file_get_contents($_cArgs[3])
+		);
+	}
+
 	$draw = new ImagickDraw();
 	$draw->setFillColor('white');
-	$draw->setFont($this->dirFonts . $_cArgs[3]);
+	$draw->setFont($fn);
 	$draw->setFontSize($_cArgs[2]);
 	
 	$out->annotateImage ($draw,$_cArgs[0],$_cArgs[1],0,implode(" ", array_slice($_cArgs,4)));
