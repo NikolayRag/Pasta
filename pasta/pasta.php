@@ -1,4 +1,5 @@
 <? 
+//  todo 7 (feature) +0: allow % in all dimentional values
 /*
 Compose images with provided script
 
@@ -61,6 +62,7 @@ private function do_size($_in, $_cArgs){
 
 
 
+// =todo 2 (feature, op) +0: allow Crop to Expand as well
 /*
 Crop box
 
