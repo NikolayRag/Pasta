@@ -62,7 +62,6 @@ private function do_size($_in, $_cArgs){
 
 
 
-// =todo 2 (feature, op) +0: allow Crop to Expand as well
 /*
 Crop box
 
