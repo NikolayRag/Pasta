@@ -8,7 +8,7 @@ Issue:
 class PASTA {
 
 private $namesA=[], $ordersA=[], $md5='';
-private $dirFonts=__dir__;
+private $tmpFolder=__dir__;
 
 
 
@@ -138,9 +138,8 @@ private function do_text($_in, $_cArgs){
 
 	if (preg_match('|^http(s)?://.+|', $_cArgs[3])){
 		$fnA = explode('/', $_cArgs[3]);
-		$fn = $this->dirFonts . $fnA[count($fnA)-1];
+		$fn = $this->tmpFolder . $fnA[count($fnA)-1];
 
-// =todo 5 (feature) +0: cache font
 		if (!file_exists($fn))
 		  file_put_contents(
 				$fn,
@@ -298,12 +297,12 @@ $_script
 	where op is 
 	  [new|take|size|crop|move|rot|text|mix|level|gamma|blur|sat|mode]
 
-$_fontRoot
-	Fonts dir to use with text-related ops
+$_tmpFolder
+	Dir to store cache
 */
-function __construct($_script=[], $_fontRoot=False){
-	if ($_fontRoot)
-	  $this->dirFonts = $_fontRoot;
+function __construct($_script=[], $_tmpFolder=False){
+	if ($_tmpFolder)
+	  $this->tmpFolder = $_tmpFolder;
 
 
 	$comString = "";
