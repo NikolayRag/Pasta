@@ -70,9 +70,10 @@ ex:
 	crop x y width height
 */
 private function do_crop($_in, $_cArgs){
-	$out = clone $_in;
-
-	$out->cropImage($_cArgs[2],$_cArgs[3],$_cArgs[0],$_cArgs[1]);
+	$out = new Imagick();
+	$out->newImage($_cArgs[2],$_cArgs[3], new ImagickPixel('rgba(0%,0%,0%,0)') );
+				
+	$out->compositeImage($_in,Imagick::COMPOSITE_OVER,-$_cArgs[0],-$_cArgs[1]);
 
 	return $out;
 }
