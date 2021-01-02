@@ -72,7 +72,7 @@ private function do_size($_in, $_cArgs){
 	
 	//calc for explicit input aspect
 	if (isSet($_cArgs[2])){
-		if ($_cArgs[2]!="*")
+		if ($_cArgs[2]!='*')
 			$cAspect = $_cArgs[2];
 
 		if ( ($x/$y > $cAspect) ^ (isSet($_cArgs[3])) ){
