@@ -49,13 +49,48 @@ private function do_take($_in, $_cArgs){
 /*
 Resize
 
+Specified aspect rectangle will fit optionally cropped into destination size
+
 ex:
-	size width height
+	size width height [aspect|* crop:x]
 */
 private function do_size($_in, $_cArgs){
+	$x = $_cArgs[0];
+	$y = $_cArgs[1];
+
+	
+	//calc for explicit aspect
+	if (isSet($_cArgs[2])){
+		$cAspect = ($_cArgs[2]=="*")
+			? ($_in->getImageWidth() / $_in->getImageHeight())
+			: $_cArgs[2];
+
+		if ($x/$y > $cAspect){
+			if (isSet($_cArgs[3]))
+				$y = $x /$cAspect;
+			else
+				$x = $y *$cAspect;
+		} else {
+			if (isSet($_cArgs[3]))
+				$x = $y *$cAspect;
+			else
+				$y = $x /$cAspect;
+		};
+	};
+
+
 	$out = clone $_in;
 	
-	$out->resizeImage($_cArgs[0],$_cArgs[1],Imagick::FILTER_CATROM ,1);
+	$out->resizeImage($x, $y, Imagick::FILTER_CATROM ,1);
+
+
+	//center
+	if (isSet($_cArgs[2]))
+		return self::do_crop(
+			$out,
+			[($x-$_cArgs[0])/2 ,($y-$_cArgs[1])/2, $_cArgs[0],$_cArgs[1]]
+		);
+
 
 	return $out;
 }
