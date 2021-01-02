@@ -65,15 +65,9 @@ private function do_size($_in, $_cArgs){
 			? ($_in->getImageWidth() / $_in->getImageHeight())
 			: $_cArgs[2];
 
-		if ($x/$y > $cAspect){
-			if (isSet($_cArgs[3]))
-				$y = $x /$cAspect;
-			else
+		if ( ($x/$y > $cAspect) ^ (isSet($_cArgs[3])) ){
 				$x = $y *$cAspect;
 		} else {
-			if (isSet($_cArgs[3]))
-				$x = $y *$cAspect;
-			else
 				$y = $x /$cAspect;
 		};
 	};
