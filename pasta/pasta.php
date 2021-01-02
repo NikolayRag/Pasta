@@ -52,18 +52,28 @@ Resize
 Specified aspect rectangle will fit optionally cropped into destination size
 
 ex:
-	size width height [aspect|* crop:x]
+	size width|* height|* [aspect|* crop:x]
 */
 private function do_size($_in, $_cArgs){
+	$cAspect = $_in->getImageWidth() / $_in->getImageHeight();
+
+	//keep output aspect
+	if ($_cArgs[0]=='*')
+		$_cArgs[0] = $_cArgs[1] *$cAspect;
+
+	if ($_cArgs[1]=='*')
+		$_cArgs[1] = $_cArgs[0] /$cAspect;
+
+
 	$x = $_cArgs[0];
 	$y = $_cArgs[1];
 
+
 	
-	//calc for explicit aspect
+	//calc for explicit input aspect
 	if (isSet($_cArgs[2])){
-		$cAspect = ($_cArgs[2]=="*")
-			? ($_in->getImageWidth() / $_in->getImageHeight())
-			: $_cArgs[2];
+		if ($_cArgs[2]!="*")
+			$cAspect = $_cArgs[2];
 
 		if ( ($x/$y > $cAspect) ^ (isSet($_cArgs[3])) ){
 				$x = $y *$cAspect;
