@@ -92,7 +92,7 @@ private function do_size($_in, $_cArgs){
 	if (isSet($_cArgs[2]))
 		return self::do_crop(
 			$out,
-			[($x-$_cArgs[0])/2 ,($y-$_cArgs[1])/2, $_cArgs[0],$_cArgs[1]]
+			[($x-$_cArgs[0])/2, ($y-$_cArgs[1])/2, $_cArgs[0],$_cArgs[1]]
 		);
 
 
